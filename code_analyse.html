@@ -1,0 +1,183 @@
+</html><html>
+
+
+<head>
+<title>compiler</title>
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		 
+ <style type="text/css">
+
+	body{
+	font-family: sans-serif;
+	padding:0;
+	margin:0;
+	}
+	
+
+
+
+	#logo{
+	float:left;
+	font-weight:bold;
+	font-size:120%;
+
+	margin:3px 5px;
+	}
+	
+	#header{
+	width:100%;
+	background-color:#FF8C00;
+	padding:5px;
+	height:30px;
+
+	}
+	
+	#buttoncontainer{
+	width:233px;
+	margin:0 auto;
+	
+	}
+	.togglebutton{
+	float:left;
+	border:1px solid grey;
+	padding:6px;
+	font-size:90%;
+	border-right:none;
+	
+	}
+	#html{
+
+	border-top-left-radius:4px;
+	border-bottom-left-radius:4px;
+	}
+	#Output{
+	border-right:1px solid grey;
+	border-top-right-radius:4px;
+	border-bottom-right-radius:4px;
+	}
+	.active{
+	font-variant: #float;
+	background-color:#ffff;
+	}
+	.highlightedbutton{
+	background-color:grey;
+	}
+	textarea{
+	border-color:grey;
+	border-top:none;
+	resize:none;
+	}
+	.pannel{
+	float:left;
+	width:50%;
+	border-left:none;
+	}
+	iframe{
+	border:none;
+	}
+	.hidden{
+	display:none;
+	}
+ 
+	#vg{
+	color:white;
+	font-weight:bold;
+	position:relative;
+	left:600px;
+	top:15px;
+	
+	}
+</style>
+
+
+
+
+</head>
+
+
+<body>
+
+ 
+
+	<div id="header">
+	
+		<div id=logo>
+		
+			COMPILER(By VinayGautam)
+		
+		</div>
+		
+		<div id="buttoncontainer">
+		
+		<div class="togglebutton active" id="HTML">HTML</div>
+		<div class="togglebutton" id="Css">CSS</div>
+		<div class="togglebutton" id="Javascript">Javascript</div>
+		<div class="togglebutton active" id="Output">Output</div>
+		</div>
+	 
+		
+		
+	
+	
+	
+	</div>
+	
+	<div id="bodyContainer">
+		<textarea id="HTMLPanel" class="pannel"><p id="paragraph"><--HTML--><br> Hello World</p></textarea>
+		<textarea id="CssPanel" class="pannel hidden">/*css*/p{color:green}</textarea>
+		<textarea id="JavascriptPanel" class="pannel hidden">/*javascript*/document.getElementById("paragraph").innerHTML = "Hello Vinay!";</textarea>
+		<iframe id="outputPanel" class="pannel"></iframe>
+		
+	</div>
+
+
+
+
+	
+	
+
+
+
+
+ <script type="text/javascript">
+	function updateOutput() {
+                
+                $("iframe").contents().find("html").html("<html><head><style type='text/css'>" + $("#CssPanel").val() + "</style></head><body>" + $("#HTMLPanel").val() + "</body></html>");
+                
+                document.getElementById("outputPanel").contentWindow.eval($("#JavascriptPanel").val());
+                
+                
+                
+            }
+ 
+ 
+ 
+ 
+ 
+		$(".togglebutton").hover(function(){
+			$(this).addClass("highlightedbutton");
+		},function(){
+		$(this).removeClass("highlightedbutton");
+		})
+		$(".togglebutton").click(function(){
+		$(this).toggleClass("active");
+		$(this).removeClass("highlightedbutton");
+		var PanelId = $(this).attr("id")+"Panel";
+		$("#"+ PanelId).toggleClass("hidden");
+		var numberOfActivePannels = 4 -$('.hidden').length;
+		 $(".pannel").width(($(window).width() / numberOfActivePannels) - 10);
+
+		})
+		
+		$(".pannel").height($(window).height() - $("#header").height() - 15);
+        $(".pannel").width(($(window).width() / 2) - 10);
+	updateOutput();
+		$("textarea").on('change keyup paste',function(){
+	updateOutput()
+		});
+		 
+
+		</script>
+</body>
+
+
